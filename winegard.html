@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winegard Company - Organizational Chart</title>
+    <link rel="icon" href="assets/winegard-logo.svg" type="image/svg+xml">
+    <style>
+        :root {
+            --primary: #004D70;
+            --primary-dark: #002636;
+            --primary-light: #0070A0;
+            --secondary: #FF6B6B;
+            --secondary-dark: #E55555;
+            --accent: #0090C0;
+            --accent-dark: #004D70;
+            --success: #2ECC71;
+            --warning: #F39C12;
+            --danger: #E74C3C;
+            --info: #0070A0;
+            --dark: #11171D;
+            --darker: #0A0E12;
+            --light: #B5C1CB;
+            --lighter: #CDD5DC;
+            --border: #1E2A34;
+            --text: #B5C1CB;
+            --text-secondary: #8A9AAA;
+            --text-tertiary: #5C6E7E;
+            --bg: #11171D;
+            --bg-darker: #0A0E12;
+            --bg-lighter: #1A2430;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --director: #FF8C42;
+            --vp: #6C63FF;
+            --senior: #FF6B9D;
+            --lead: #00B4DB;
+            --staff: #0090C0;
+            --manager: #FFB347;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg) 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .home-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            z-index: 100;
+            transition: border-color .2s, color .2s;
+        }
+        .home-link:hover {
+            border-color: var(--primary-light);
+            color: var(--text);
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-logo-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+
+        .header-logo-wrap .wg-icon {
+            width: 56px;
+            height: 56px;
+            flex-shrink: 0;
+        }
+
+        .header-logo-wrap .wg-wordmark {
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+
+        .header h1 {
+            display: none;
+        }
+
+        .header .tagline {
+            font-size: 1.2em;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .header .location {
+            color: var(--text-tertiary);
+            font-size: 0.95em;
+        }
+
+        .header .ext-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .header .ext-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.8em;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: border-color .2s, color .2s;
+        }
+        .header .ext-links a:hover {
+            border-color: var(--primary-light);
+            color: var(--text);
+        }
+        .header .ext-links svg {
+            width: 12px;
+            height: 12px;
+            flex-shrink: 0;
+        }
+
+        /* Search Bar */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-bar {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+            max-width: 500px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--bg-lighter);
+            color: var(--text);
+            font-size: 1em;
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 77, 112, 0.2);
+            background: var(--bg);
+        }
+
+        .search-bar input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+            pointer-events: none;
+        }
+
+        .search-bar.active input {
+            border-color: var(--primary);
+        }
+
+        .search-hit {
+            outline: 2px solid #0090C0;
+            outline-offset: 2px;
+            border-radius: 8px;
+            background: rgba(0,77,112,.12) !important;
+        }
+        .search-hit-card {
+            outline: 2px solid #0090C0;
+            outline-offset: 3px;
+            border-radius: 14px;
+            box-shadow: 0 0 20px rgba(0,144,192,.3) !important;
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 11px 20px;
+            border: 2px solid var(--primary);
+            border-radius: var(--radius);
+            background: transparent;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95em;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 77, 112, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Leadership Section */
+        .leadership {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(224px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: linear-gradient(135deg, var(--bg-lighter) 0%, var(--bg) 100%);
+            border: 1px solid rgba(181, 193, 203, 0.08);
+            border-radius: var(--radius);
+            padding: 20px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: rgba(0, 77, 112, 0.4);
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-lighter) 100%);
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.88em;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .card-info {
+            flex: 1;
+        }
+
+        .card-name {
+            font-size: 0.92em;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 3px;
+        }
+
+        .card-title {
+            font-size: 0.76em;
+            color: var(--text-secondary);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 77, 112, 0.3);
+            color: var(--primary);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.62em;
+            font-weight: 600;
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.vp {
+            background: rgba(108, 99, 255, 0.2);
+            color: var(--vp);
+        }
+
+        .badge.director {
+            background: rgba(255, 140, 66, 0.2);
+            color: var(--director);
+        }
+
+        .badge.senior {
+            background: rgba(255, 107, 157, 0.2);
+            color: var(--senior);
+        }
+
+        .badge.lead {
+            background: rgba(0, 180, 219, 0.2);
+            color: var(--lead);
+        }
+
+        .badge.staff {
+            background: rgba(0, 144, 192, 0.2);
+            color: var(--staff);
+        }
+
+        .badge.manager {
+            background: rgba(255, 179, 71, 0.2);
+            color: var(--manager);
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .ci {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(0,77,112,.15);
+            color: #0090C0;
+            text-decoration: none;
+            transition: all .15s;
+        }
+
+        .ci:hover {
+            background: rgba(0,77,112,.3);
+            color: #0090C0;
+            transform: scale(1.1);
+        }
+
+        .ci svg {
+            display: block;
+        }
+
+        /* Department Styles */
+        .dept-tier {
+            margin-bottom: 40px;
+        }
+
+        .dept-tier.three-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .dept-tier.grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        @media (max-width: 1200px) {
+            .dept-tier.three-col {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dept-tier.three-col,
+            .dept-tier.grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dept {
+            background: linear-gradient(135deg, var(--bg-lighter) 0%, var(--bg) 100%);
+            border: 1px solid rgba(181, 193, 203, 0.08);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .dept:hover {
+            border-color: rgba(0, 77, 112, 0.4);
+            box-shadow: var(--shadow);
+        }
+
+        .dept-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 14px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: var(--transition);
+        }
+
+        .dept-header:hover {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+        }
+
+        .dept-name {
+            font-size: 0.96em;
+            font-weight: 700;
+            color: white;
+        }
+
+        .dept-toggle {
+            font-size: 0.96em;
+            transition: transform 0.3s ease;
+            color: white;
+        }
+
+        .dept.collapsed .dept-toggle {
+            transform: rotate(-90deg);
+        }
+
+        .dept-content {
+            padding: 16px;
+            max-height: 2000px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dept.collapsed .dept-content {
+            max-height: 0;
+            padding: 0 16px;
+        }
+
+        .dept-director {
+            margin-bottom: 14px;
+        }
+
+        .dept-director .card {
+            margin: 0;
+            border: 2px solid var(--director);
+        }
+
+        .dept-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .dept-person {
+            background: linear-gradient(135deg, rgba(0, 38, 54, 0.2) 0%, rgba(0, 77, 112, 0.15) 100%);
+            border: 1px solid rgba(0, 77, 112, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .dept-person:hover {
+            border-color: rgba(0, 77, 112, 0.6);
+            background: linear-gradient(135deg, rgba(0, 77, 112, 0.2) 0%, rgba(0, 77, 112, 0.2) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 77, 112, 0.3);
+        }
+
+        .dept-person-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .dept-person .avatar {
+            width: 32px;
+            height: 32px;
+            font-size: 0.72em;
+        }
+
+        .dept-person-info {
+            flex: 1;
+        }
+
+        .dept-person-name {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.8em;
+        }
+
+        .dept-person-title {
+            font-size: 0.68em;
+            color: var(--text-secondary);
+        }
+
+        .dept-person .badge {
+            margin-top: 4px;
+            font-size: 0.58em;
+        }
+
+        .dept-person .contact-info {
+            margin-top: 4px;
+            justify-content: flex-start;
+        }
+
+        .dept-person .ci {
+            width: 22px;
+            height: 22px;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 0 20px 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Statistics Card */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--bg-lighter) 0%, var(--bg) 100%);
+            border: 1px solid rgba(181, 193, 203, 0.08);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: rgba(0, 77, 112, 0.4);
+            box-shadow: var(--shadow);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Pie Chart */
+        .chart-container {
+            background: linear-gradient(135deg, var(--bg-lighter) 0%, var(--bg) 100%);
+            border: 1px solid rgba(181, 193, 203, 0.08);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-tertiary);
+            font-size: 0.9em;
+            margin-top: 60px;
+        }
+
+        .footer-text {
+            margin-bottom: 10px;
+        }
+
+        .footer-divider {
+            display: inline-block;
+            margin: 0 8px;
+            color: var(--border);
+        }
+
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-size: 1.1em;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .card, .dept, .dept-person {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            .search-bar {
+                max-width: 100%;
+            }
+
+            .control-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .leadership-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-link">&larr; All Org Charts</a>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo-wrap">
+                <img class="wg-icon" src="assets/winegard-logo.svg" alt="Winegard">
+                <span class="wg-wordmark">Winegard</span>
+            </div>
+            <p class="tagline">Antenna & Connectivity Solutions — Since 1953</p>
+            <p class="location">Burlington, Iowa • February 2026</p>
+            <div class="ext-links">
+                <a href="https://www.winegardmfg.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website</a>
+                <a href="https://www.linkedin.com/company/winegard/people/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--vp);"></div>VP / C-Suite</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--director);"></div>Director</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--manager);"></div>Manager</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--senior);"></div>Senior</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--lead);"></div>Lead</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--staff);"></div>Staff</div>
+        </div>
+
+        <!-- Search and Controls -->
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search by name or title...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <div class="control-buttons">
+                <button class="btn" id="expandAllBtn">Expand All</button>
+                <button class="btn" id="collapseAllBtn">Collapse All</button>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">78</div>
+                <div class="stat-label">Total Team Members</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">11</div>
+                <div class="stat-label">Departments</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Leadership</div>
+            </div>
+        </div>
+
+
+        <!-- Leadership Section -->
+        <div class="leadership">
+            <h2 class="section-title">Executive Leadership</h2>
+            <div class="leadership-grid">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="avatar" style="background: #BB8FCE;">RW</div>
+                        <div class="card-info">
+                            <div class="card-name">Randy Winegard</div>
+                            <div class="card-title">CEO</div>
+                        </div>
+                    </div>
+                    <span class="badge ">Founder's Son</span>
+
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="avatar" style="background: #F7DC6F;">GW</div>
+                        <div class="card-info">
+                            <div class="card-name">Grant Whipple</div>
+                            <div class="card-title">President & COO</div>
+                        </div>
+                    </div>
+                    <span class="badge ">C-Suite</span>
+
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="avatar" style="background: #85C1E2;">KW</div>
+                        <div class="card-info">
+                            <div class="card-name">Katy Whitaker</div>
+                            <div class="card-title">CFO</div>
+                        </div>
+                    </div>
+                    <span class="badge ">C-Suite</span>
+
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="avatar" style="background: #6C63FF;">TW</div>
+                        <div class="card-info">
+                            <div class="card-name">Todd Wibben</div>
+                            <div class="card-title">VP Technology</div>
+                        </div>
+                    </div>
+                    <span class="badge vp">VP</span>
+<div class="contact-info"><a href="mailto:Todd.Wibben@winegard.com" class="ci" title="Todd.Wibben@winegard.com"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/></svg></a></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="avatar" style="background: #6C63FF;">JR</div>
+                        <div class="card-info">
+                            <div class="card-name">Josh Reid</div>
+                            <div class="card-title">VP Operations</div>
+                        </div>
+                    </div>
+                    <span class="badge vp">VP</span>
+<div class="contact-info"><a href="mailto:Josh.Reid@winegard.com" class="ci" title="Josh.Reid@winegard.com"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/></svg></a><a href="tel:319-758-5802" class="ci" title="319-758-5802"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg></a></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="avatar" style="background: #6C63FF;">DJ</div>
+                        <div class="card-info">
+                            <div class="card-name">Dr. Denise Keltner Johnson</div>
+                            <div class="card-title">VP Human Resources</div>
+                        </div>
+                    </div>
+                    <span class="badge vp">VP</span>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Departments Section -->
+        <div class="dept-tier three-col">
+
+            <div class="dept">
+                <div class="dept-header">
+                    <span class="dept-name">Engineering</span>
+                    <span class="dept-toggle">▼</span>
+                </div>
+                <div class="dept-content">
+
+                    <div class="dept-director">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="avatar" style="background: #FF8C42;">BV</div>
+                                <div class="card-info">
+                                    <div class="card-name">Brent Venghaus</div>
+                                    <div class="card-title">Director, Mechanical Engineering</div>
+                                </div>
+                            </div>
+                            <span class="badge director">Director</span>
+<div class="contact-info"><a href="mailto:Brent.Venghaus@winegard.com" class="ci" title="Brent.Venghaus@winegard.com"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/></svg></a></div>
+                        </div>
+                    </div>
+
+                    <div class="dept-members">
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F8B88B;">BH</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Brock Heap</div>
+                                    <div class="dept-person-title">Senior Mechanical Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge senior">Senior</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #D5F4E6;">JR</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Jeremy Rohdy</div>
+                                    <div class="dept-person-title">Engineering Team Lead</div>
+                                </div>
+                            </div>
+                            <span class="badge lead">Lead</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #FF6B6B;">LW</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Lee Waldron</div>
+                                    <div class="dept-person-title">Senior Electrical Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge senior">Senior</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F8B88B;">KM</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Kevin Murphy</div>
+                                    <div class="dept-person-title">RF Design Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #4ECDC4;">EH</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Eric Husen</div>
+                                    <div class="dept-person-title">Firmware Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #D5F4E6;">CJ</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Colter Jarrett</div>
+                                    <div class="dept-person-title">Mechanical Engineer Tech</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #BB8FCE;">JJ</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Jason Johannsen</div>
+                                    <div class="dept-person-title">Test Systems Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+<div class="contact-info"><a href="mailto:Jason.Johannsen@winegard.com" class="ci" title="Jason.Johannsen@winegard.com"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/></svg></a><a href="tel:319-759-5723" class="ci" title="319-759-5723"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg></a></div>
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #45B7D1;">RP</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Randy Plummer</div>
+                                    <div class="dept-person-title">Mechanical Eng / PCB Design</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #98D8C8;">TH</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Ted Hea</div>
+                                    <div class="dept-person-title">Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #4ECDC4;">EH</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Eli Hawes</div>
+                                    <div class="dept-person-title">Lean Six Sigma Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #A3E4D7;">PH</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Paul Hulett</div>
+                                    <div class="dept-person-title">Wireless Technology Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #D5F4E6;">JR</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">John Rahn</div>
+                                    <div class="dept-person-title">Manufacturing Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+<div class="contact-info"><a href="mailto:John.Rahn@winegard.com" class="ci" title="John.Rahn@winegard.com"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/></svg></a></div>
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #D5F4E6;">NV</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Nick Velcich</div>
+                                    <div class="dept-person-title">Embedded Software Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #FF6B6B;">MR</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Michael Ryan</div>
+                                    <div class="dept-person-title">Embedded Computer Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #4ECDC4;">HS</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Henry Scipio</div>
+                                    <div class="dept-person-title">Electronics Tech</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F8B88B;">VK</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Victoria Keltner</div>
+                                    <div class="dept-person-title">Lead Industrial Designer</div>
+                                </div>
+                            </div>
+                            <span class="badge lead">Lead</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #6C5CE7;">MT</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Marty Taeger</div>
+                                    <div class="dept-person-title">Mechanical Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+<div class="contact-info"><a href="mailto:Marty.Taeger@winegard.com" class="ci" title="Marty.Taeger@winegard.com"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/></svg></a><a href="tel:3197585831" class="ci" title="319.758.5831"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg></a></div>
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #FDCB6E;">DK</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Dean Kostan</div>
+                                    <div class="dept-person-title">Manager of Research and Development</div>
+                                </div>
+                            </div>
+                            <span class="badge manager">Manager</span>
+<div class="contact-info"><a href="mailto:Dean.Kostan@winegard.com" class="ci" title="Dean.Kostan@winegard.com"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/></svg></a><a href="tel:2174302650" class="ci" title="(217) 430-2650"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg></a></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="dept">
+                <div class="dept-header">
+                    <span class="dept-name">Software & IT</span>
+                    <span class="dept-toggle">▼</span>
+                </div>
+                <div class="dept-content">
+
+                    <div class="dept-members">
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F7DC6F;">JM</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Jordan Mingus</div>
+                                    <div class="dept-person-title">Software Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #FADBD8;">SM</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Stephen Meyer</div>
+                                    <div class="dept-person-title">Sr. Software Engineer</div>
+                                </div>
+                            </div>
+                            <span class="badge senior">Senior</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #98D8C8;">ML</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Mark Lemmon</div>
+                                    <div class="dept-person-title">Software Integration</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #A3E4D7;">JH</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Julie Holmes</div>
+                                    <div class="dept-person-title">IT</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #FADBD8;">TC</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Trevor Cushman</div>
+                                    <div class="dept-person-title">Management Information Systems</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #85C1E2;">TC</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Tim Conrad</div>
+                                    <div class="dept-person-title">Technical Program Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge manager">Manager</span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="dept">
+                <div class="dept-header">
+                    <span class="dept-name">Sales & Business Development</span>
+                    <span class="dept-toggle">▼</span>
+                </div>
+                <div class="dept-content">
+
+                    <div class="dept-director">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="avatar" style="background: #FF8C42;">AL</div>
+                                <div class="card-info">
+                                    <div class="card-name">Aaron Luttenegger</div>
+                                    <div class="card-title">Director of Business Development and Sales</div>
+                                </div>
+                            </div>
+                            <span class="badge director">Director</span>
+
+                        </div>
+                    </div>
+
+                    <div class="dept-members">
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #D5F4E6;">KL</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Keith Larson</div>
+                                    <div class="dept-person-title">Director of Sales-RV Market</div>
+                                </div>
+                            </div>
+                            <span class="badge director">Director</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #98D8C8;">JR</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Jim Riffel</div>
+                                    <div class="dept-person-title">Director Satellite Business Group</div>
+                                </div>
+                            </div>
+                            <span class="badge director">Director</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #FADBD8;">CC</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Carrie Carruthers</div>
+                                    <div class="dept-person-title">Sr. Consumer Electronics Acct. Mgr.</div>
+                                </div>
+                            </div>
+                            <span class="badge senior">Senior</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #98D8C8;">WB</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Willis Brooks</div>
+                                    <div class="dept-person-title">Regional Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge manager">Manager</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #85C1E2;">JF</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Jarod Ford</div>
+                                    <div class="dept-person-title">Mobile Product Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge manager">Manager</span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="dept-tier grid">
+
+            <div class="dept">
+                <div class="dept-header">
+                    <span class="dept-name">Operations & Manufacturing</span>
+                    <span class="dept-toggle">▼</span>
+                </div>
+                <div class="dept-content">
+
+                    <div class="dept-director">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="avatar" style="background: #FF8C42;">JG</div>
+                                <div class="card-info">
+                                    <div class="card-name">Joshua Gallerick</div>
+                                    <div class="card-title">Operations Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge director">Director</span>
+
+                        </div>
+                    </div>
+
+                    <div class="dept-members">
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #FFA07A;">LG</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Lester Gambrel</div>
+                                    <div class="dept-person-title">Value Stream Supervisor</div>
+                                </div>
+                            </div>
+                            <span class="badge manager">Manager</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F7DC6F;">JS</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Jeremy Smith</div>
+                                    <div class="dept-person-title">Shipping Team Leader</div>
+                                </div>
+                            </div>
+                            <span class="badge lead">Lead</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #A3E4D7;">MB</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Mark Blindt</div>
+                                    <div class="dept-person-title">SMT Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge manager">Manager</span>
+<div class="contact-info"><a href="mailto:Mark.Blindt@winegard.com" class="ci" title="Mark.Blindt@winegard.com"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/></svg></a></div>
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #85C1E2;">JW</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Jami Wixom</div>
+                                    <div class="dept-person-title">Master Scheduler</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #45B7D1;">CJ</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Catina Johnson</div>
+                                    <div class="dept-person-title">Production Worker</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #BB8FCE;">MW</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Megan Wakefield</div>
+                                    <div class="dept-person-title">Assembler</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #D5F4E6;">JS</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">John Shaffner</div>
+                                    <div class="dept-person-title">SMT Tech</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="dept">
+                <div class="dept-header">
+                    <span class="dept-name">Supply Chain & Logistics</span>
+                    <span class="dept-toggle">▼</span>
+                </div>
+                <div class="dept-content">
+
+                    <div class="dept-director">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="avatar" style="background: #FF8C42;">JK</div>
+                                <div class="card-info">
+                                    <div class="card-name">John King</div>
+                                    <div class="card-title">Director Supply Chain Management</div>
+                                </div>
+                            </div>
+                            <span class="badge director">Director</span>
+
+                        </div>
+                    </div>
+
+                    <div class="dept-members">
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #85C1E2;">TW</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Terry Wagner</div>
+                                    <div class="dept-person-title">Procurement Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge manager">Manager</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #85C1E2;">CB</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Chuck Bright</div>
+                                    <div class="dept-person-title">Buyer</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #98D8C8;">GO</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Georgia Oliver</div>
+                                    <div class="dept-person-title">Assistant Buyer</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #BB8FCE;">DE</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Doug Edwards</div>
+                                    <div class="dept-person-title">Purchasing Agent</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #FFA07A;">EL</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Eric Lowe</div>
+                                    <div class="dept-person-title">Inventory Control</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #45B7D1;">SB</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">sondra bohnenkamp</div>
+                                    <div class="dept-person-title">Logistics Clerk</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #FFA07A;">DW</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Debra Williams</div>
+                                    <div class="dept-person-title">Logistic Clerk</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #74B9FF;">GR</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Gary Rumelhart</div>
+                                    <div class="dept-person-title">Payment Information Shipping Specialist</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+<div class="contact-info"><a href="mailto:gary.rumelhart@winegard.com" class="ci" title="gary.rumelhart@winegard.com"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/></svg></a></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="dept">
+                <div class="dept-header">
+                    <span class="dept-name">Quality</span>
+                    <span class="dept-toggle">▼</span>
+                </div>
+                <div class="dept-content">
+
+                    <div class="dept-members">
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F8B88B;">RF</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Roger Foehring</div>
+                                    <div class="dept-person-title">QA Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge manager">Manager</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F7DC6F;">AR</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Amanda Roy</div>
+                                    <div class="dept-person-title">Quality (ASQ CQIA)</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #98D8C8;">LA</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Larry Arvidson</div>
+                                    <div class="dept-person-title">OEM Audit Technician</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="dept">
+                <div class="dept-header">
+                    <span class="dept-name">Marketing</span>
+                    <span class="dept-toggle">▼</span>
+                </div>
+                <div class="dept-content">
+
+                    <div class="dept-director">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="avatar" style="background: #FF8C42;">ES</div>
+                                <div class="card-info">
+                                    <div class="card-name">Evan Sorenson</div>
+                                    <div class="card-title">Director of Marketing</div>
+                                </div>
+                            </div>
+                            <span class="badge director">Director</span>
+
+                        </div>
+                    </div>
+
+                    <div class="dept-members">
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #85C1E2;">SV</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Stacie Venghaus</div>
+                                    <div class="dept-person-title">Product Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #45B7D1;">DK</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Dale Kemper</div>
+                                    <div class="dept-person-title">SilverLeaf Product Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #A3E4D7;">AW</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Alexis Winegard</div>
+                                    <div class="dept-person-title">Marketing Strategist</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F7DC6F;">EW</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Eric Winegard</div>
+                                    <div class="dept-person-title">Marketing and Sales</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="dept">
+                <div class="dept-header">
+                    <span class="dept-name">Technical & Field Services</span>
+                    <span class="dept-toggle">▼</span>
+                </div>
+                <div class="dept-content">
+
+                    <div class="dept-director">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="avatar" style="background: #FF8C42;">MR</div>
+                                <div class="card-info">
+                                    <div class="card-name">Maurice Rojas</div>
+                                    <div class="card-title">Technical & Field Services Director</div>
+                                </div>
+                            </div>
+                            <span class="badge director">Director</span>
+
+                        </div>
+                    </div>
+
+                    <div class="dept-members">
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #D5F4E6;">HR</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Hans Rabong</div>
+                                    <div class="dept-person-title">Tech Services Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge manager">Manager</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #FFA07A;">BH</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Bryan Holmes</div>
+                                    <div class="dept-person-title">Lead Technical Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge lead">Lead</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #FF6B6B;">MB</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Mike Barum</div>
+                                    <div class="dept-person-title">Technician Service & Sales Training</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #98D8C8;">AG</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Alain Genereux</div>
+                                    <div class="dept-person-title">Technical Service Canada</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #FADBD8;">TW</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Teresa Walker</div>
+                                    <div class="dept-person-title">Off Air Specialist</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="dept">
+                <div class="dept-header">
+                    <span class="dept-name">Finance & Administration</span>
+                    <span class="dept-toggle">▼</span>
+                </div>
+                <div class="dept-content">
+
+                    <div class="dept-members">
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F7DC6F;">MK</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Melodee Kennedy</div>
+                                    <div class="dept-person-title">Treasurer</div>
+                                </div>
+                            </div>
+                            <span class="badge manager">Manager</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F8B88B;">DS</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Dan Schroeder</div>
+                                    <div class="dept-person-title">Accountant</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #FF6B6B;">AR</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Amanda Randall</div>
+                                    <div class="dept-person-title">Accounts Receivable</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+<div class="contact-info"><a href="mailto:Accounts.Receivable@winegard.com" class="ci" title="Accounts.Receivable@winegard.com"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/></svg></a><a href="tel:800-288-8094" class="ci" title="800-288-8094"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg></a></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="dept">
+                <div class="dept-header">
+                    <span class="dept-name">Customer Service</span>
+                    <span class="dept-toggle">▼</span>
+                </div>
+                <div class="dept-content">
+
+                    <div class="dept-members">
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #D5F4E6;">DD</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Debra Dickson</div>
+                                    <div class="dept-person-title">Customer Service</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F8B88B;">AH</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Amy Hollenbeck</div>
+                                    <div class="dept-person-title">Staff</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+<div class="contact-info"><a href="mailto:Amy.Hollenbeck@winegard.com" class="ci" title="Amy.Hollenbeck@winegard.com"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/></svg></a></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="dept">
+                <div class="dept-header">
+                    <span class="dept-name">Facilities & Safety</span>
+                    <span class="dept-toggle">▼</span>
+                </div>
+                <div class="dept-content">
+
+                    <div class="dept-members">
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #85C1E2;">DH</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Dan Hayes</div>
+                                    <div class="dept-person-title">Facilities Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge manager">Manager</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F8B88B;">PR</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Phil Rupe</div>
+                                    <div class="dept-person-title">Maintenance Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge manager">Manager</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F7DC6F;">TD</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Terry Durbin</div>
+                                    <div class="dept-person-title">Safety Manager</div>
+                                </div>
+                            </div>
+                            <span class="badge manager">Manager</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #F7DC6F;">RH</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Robert Henry</div>
+                                    <div class="dept-person-title">Maintenance Electrician</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                        <div class="dept-person">
+                            <div class="dept-person-header">
+                                <div class="avatar" style="background: #4ECDC4;">JG</div>
+                                <div class="dept-person-info">
+                                    <div class="dept-person-name">Jeff Gerdom</div>
+                                    <div class="dept-person-title">Head Groundsman</div>
+                                </div>
+                            </div>
+                            <span class="badge staff">Staff</span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-text">
+                <strong>Winegard Company</strong>
+                <span class="footer-divider">•</span>
+                Antenna & Connectivity Solutions Since 1953
+                <span class="footer-divider">•</span>
+                Burlington, Iowa
+            </div>
+            <div class="footer-text">
+                Organizational Chart • February 2026 • Compiled from Public Sources
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Department collapse/expand functionality
+        document.querySelectorAll('.dept-header').forEach(function(header) {
+            header.addEventListener('click', function() {
+                this.closest('.dept').classList.toggle('collapsed');
+            });
+        });
+
+        // Expand all button
+        document.getElementById('expandAllBtn').addEventListener('click', function() {
+            document.querySelectorAll('.dept').forEach(function(dept) {
+                dept.classList.remove('collapsed');
+            });
+        });
+
+        // Collapse all button
+        document.getElementById('collapseAllBtn').addEventListener('click', function() {
+            document.querySelectorAll('.dept').forEach(function(dept) {
+                dept.classList.add('collapsed');
+            });
+        });
+
+        // Search functionality
+        var searchTimeout = null;
+        document.getElementById('searchInput').addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            var searchBar = this.closest('.search-bar');
+
+            // Clear all previous highlights
+            document.querySelectorAll('.search-hit').forEach(function(el) { el.classList.remove('search-hit'); });
+            document.querySelectorAll('.search-hit-card').forEach(function(el) { el.classList.remove('search-hit-card'); });
+
+            var q = this.value.toLowerCase().trim();
+
+            if (q) {
+                searchBar.classList.add('active');
+            } else {
+                searchBar.classList.remove('active');
+                return;
+            }
+
+            searchTimeout = setTimeout(function() {
+                var firstMatch = null;
+
+                // Search top leadership cards
+                document.querySelectorAll('.leadership-grid .card').forEach(function(card) {
+                    var text = card.textContent.toLowerCase();
+                    if (text.includes(q)) {
+                        card.classList.add('search-hit-card');
+                        if (!firstMatch) firstMatch = card;
+                    }
+                });
+
+                // Search department rows (directors + members)
+                document.querySelectorAll('.dept-person, .dept-director').forEach(function(p) {
+                    var text = p.textContent.toLowerCase();
+                    if (text.includes(q)) {
+                        p.classList.add('search-hit');
+                        // Expand the parent department so the match is visible
+                        var dept = p.closest('.dept');
+                        if (dept && dept.classList.contains('collapsed')) {
+                            dept.classList.remove('collapsed');
+                        }
+                        if (!firstMatch) firstMatch = p;
+                    }
+                });
+
+                // Scroll first match into view
+                if (firstMatch) {
+                    setTimeout(function() {
+                        firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+                }
+            }, 250);
+        });
+    </script>
+</body>
+</html>
