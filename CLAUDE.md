@@ -72,6 +72,13 @@ Current department line numbers: Executive Office & Strategy 274 (now centered u
 ```html
 <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
 ```
+**LinkedIn** (same `.ci` treatment, just a 24x24 viewBox — used on leadership/VP cards when we have someone's profile URL; add `target="_blank" rel="noopener"` since it's external):
+```html
+<a href="https://www.linkedin.com/in/USERNAME/" class="ci" title="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+```
+If the person has no `ci-wrap` yet (no email/phone on file), add one just for the LinkedIn link, same as any other `ci-wrap`.
+
+For pulling a real headshot from a LinkedIn profile URL: an anonymous fetch of the profile page (`curl` with a browser User-Agent) usually gets blocked into a sign-up wall, but the page's `<meta property="og:image">` tag still carries their public profile-photo URL (`media.licdn.com/...`) even when the rest of the page is gated — `grep -o '<meta property="og:image"[^>]*>'` on the curl'd HTML. Crop/resize to 100x100 (`sips -z 100 100`) to match the existing embedded-photo convention before base64-encoding.
 
 ### Photo cards
 When a headshot is available, replace the `dp-avatar` initials div with:
