@@ -12,6 +12,8 @@ Reference spreadsheets (LinkedIn exports used to cross-check chart completeness 
 
 Every HTML/subpage links back to `index.html` via a fixed `.home-link` ("← All Org Charts") in the top-left corner — keep this on any new subpage.
 
+`add_employee.py` — CLI for adding a regular department member to either chart without hand-editing HTML or forgetting to update a count. See "Workflow for adding an employee" below.
+
 ### `assets/` — pulled brand assets
 Logos/favicons pulled directly from each company's live site, kept as their original file type (SVG where the source had one):
 - `hyper-favicon.svg`, `hyper-logo.svg` — from hyper.com (`<link rel="icon">` and the theme's header logo asset). The logo is the white-on-transparent variant (source also has a blue variant, not used, since hyper.html's theme is dark).
@@ -116,6 +118,23 @@ Badge classes: `badge vp`, `badge director`, `badge manager`, `badge lead`, `bad
 `.stats-container` (~line 738) has three static numbers: Total Team Members, Departments, Leadership. **Update "Total Team Members" whenever headcount changes** — like Hyper, this is plain text, not computed.
 
 ## Workflow for adding an employee (either chart)
+
+### Preferred: `add_employee.py`
+For a regular department member (not a leadership-tier add — see below), use the script instead of hand-editing:
+```
+python3 add_employee.py --company hyper --dept Engineering \
+    --name "Jane Doe" --title "Software Engineer" --level staff \
+    --email jdoe@hyper.com --phone "(804) 555-1212"
+
+python3 add_employee.py --company winegard --dept Engineering \
+    --name "Jane Doe" --title "Software Engineer" --level staff \
+    --email jane.doe@winegard.com
+```
+It inserts the card (matching the exact per-site template, including a photo via `--photo path.jpg` for hyper.html) and updates every derived count in the same run: `dept-count`, the pie chart entry, and the header/stats team total (hyper.html) or just the stats total (winegard.html — it has no per-dept count or pie chart). `--level` is one of `director|manager|senior|lead|staff`; `--dept` must match one of the existing department names exactly (`--list-depts` prints the valid list per company; a typo fails loudly rather than silently misfiling someone). Run with `--dry-run` first to preview the count changes before it writes anything. Still `git diff` the result before committing — the script gets the mechanics right, but doesn't know whether this is a genuine new hire vs. a duplicate name-variant already in the chart (see the cross-checking section below).
+
+Out of scope for the script: the CEO/C-suite/VP rows (hyper.html) and the flat exec row (winegard.html) — those use different one-off templates. Add those by hand (or ask Claude) following the same manual steps below, and remember the pie chart's `"Executive Leadership"` entry covers CEO + C-suite + VP combined.
+
+### Manual (leadership-tier adds, or if you'd rather not use the script)
 1. `grep -n 'data-dept="DeptName"'` (hyper.html) or `grep -n '<span class="dept-name">DeptName'` (winegard.html) to find the section.
 2. Read that section (small enough ranges are fine directly; avoid reading a whole hyper.html photo-heavy section at once — base64 blobs blow up token counts, so `sed -n` + strip `data:image/...` or target narrow line ranges).
 3. Insert the new card via Edit, matching the existing template exactly (avatar/initials, level badge, contact icons if email/phone known).
