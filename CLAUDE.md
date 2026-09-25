@@ -95,7 +95,7 @@ The `.count` badge near the top (`"89 Team Members · Henrico / Glen Allen, Virg
 
 ## winegard.html structure
 
-Different template from hyper.html (built independently) — same idea, different class names, and no embedded photos (all avatars are colored-initial divs).
+Different template from hyper.html (built independently) — same idea, different class names. Avatars default to colored-initial divs; a photo has been added for at least one person (Dean Kostan) by replacing that div with the same `<img class="avatar" style="object-fit:cover;">` pattern hyper.html uses (the shared `.avatar` class already sets width/height/border-radius, so no extra sizing is needed) — same base64-embed convention as hyper.html, just not the default here.
 
 ### Leadership tier
 Exec cards use `class="card"` with `card-name` / `card-title` (not `dp-name`/`dept-person-name`), around line 759 onward, one row of CEO/President/CFO/VPs/Directors together (no separate CEO/C-suite/VP tiers like Hyper).
